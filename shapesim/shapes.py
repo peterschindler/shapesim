@@ -520,7 +520,6 @@ class Shape3Ellipses(Shape3):
         self.rho = rho
         self.addtype(ellipseprojfn,(r1, r2, rho, alpha, 0., 0.),bboxdims=bboxdims)
 
-from shapes.arrays import mkarray3D
 class Nmer3(Shape3Spheres):
     ''' An nmershape of spheres
         radius - sphere radius
@@ -1670,12 +1669,14 @@ def cylinderprojfn(img, r, L, rho, alpha, beta, gamma, bboxdims=None,resolution=
     # NOTE : need to fix density later
     rhor = L*rho
     img[:bd[1],:bd[0]] = rhor*((1 - ((X-rcen[0])**2/rp**2 + (Y-rcen[1])**2/rp**2)) > 0)
+    '''
     sum1 = np.sum(img[:bd[1],:bd[0]])
-    # smooth image (so rotate versions look better)
+    # smooth image (so rotate versions look better), removed for now: need to fix complex number issue with gaussian_filter
     #img[:bd[1],:bd[0]].real = gaussian_filter(img[:bd[1],:bd[0]].real,1)
     #img[:bd[1],:bd[0]].imag = gaussian_filter(img[:bd[1],:bd[0]].imag,1)
     sum2 = np.sum(img[:bd[1],:bd[0]])
     img[:bd[1],:bd[0]] *= sum1/sum2
+    '''
 
 # superball
 def superballprojfn(img, r, p, rho, alpha, beta, gamma, bboxdims=None,resolution=1.,niter=None):
