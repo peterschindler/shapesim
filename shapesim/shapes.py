@@ -1616,14 +1616,14 @@ def ellipseprojfn(img, ra, rb, rho, alpha, beta, gamma, bboxdims=None,resolution
         #plt.clf();plt.imshow(X);plt.draw();plt.pause(.001);
     # NOTE : need to fix density later
     rhor = 2*rho*ra
+    img = np.real(img)
     img[:bd[1],:bd[0]] = rhor*np.sqrt(np.maximum(0,(1 - ((X-rcen[0])**2/ra**2 + (Y-rcen[1])**2/rb**2))))
-    '''
+    
     sum1 = np.sum(img[:bd[1],:bd[0]])
     # smooth image (so rotate versions look better)
     img[:bd[1],:bd[0]] = gaussian_filter(img[:bd[1],:bd[0]],1)
     sum2 = np.sum(img[:bd[1],:bd[0]])
     img[:bd[1],:bd[0]] *= sum1/sum2
-    '''
 
 def cylinderprojfn(img, r, L, rho, alpha, beta, gamma, bboxdims=None,resolution=1.):
     ''' Draw the projection of a cylinder
